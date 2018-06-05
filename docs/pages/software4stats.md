@@ -25,6 +25,7 @@ Once inside Jupyter Notebook, RStudio Server should be an option under the menu
 ![](./pages/figs/rstudio-session.jpg)
 
 3. You can install your own local docker by downloading the entire repository and invoking
+
 ```
 docker build <path to proteomicsShortCourse directory> -t msqrob_docker
 ```
