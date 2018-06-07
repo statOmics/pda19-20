@@ -1,4 +1,4 @@
-Proteomics Shortcourse
+Proteomics Data Analysis (PDA)
 ----------------------
 
 R shiny apps for proteomics.
