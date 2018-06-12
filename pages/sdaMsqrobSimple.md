@@ -6,15 +6,15 @@ mathjax: true
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-### 2.2. Statistical analysis with MSqRob for simple designs
+### 2. Statistical analysis with MSqRob for simple designs
 The result of a quantitative analysis is a list of peptide and/or protein abundances for every protein in different samples, or abundance ratios between the samples. In this chapter we will describe a generic workflow for differential analysis of quantitative datasets with simple experimental designs.
 In order to extract relevant information from these massive datasets, we will use the MSqRob Shiny GUI, a graphical interface that allows for straightforward data inspection and robust relative protein quantification [1]. The material in this tutorial is partially based on our paper Experimental design and data-analysis in label-free quantitative LC/MS proteomics: A tutorial with MSqRob [2].
 
-#### 2.2.1 Basic Statistical Concepts
+#### 2.1 Basic Statistical Concepts
 The actual design of an experiment strongly impacts the data analysis and its power to discover differentially abundant proteins. Therefore, we first cover some basic concepts on experimental design. Next, we provide a general step-by-step overview of a typical quantitative proteomics data analysis workflow. The monthly column “Points of significance” in Nature Methods is a useful primer on statistical design for researchers in life sciences to which we extensively refer in this section (http://www.nature.com/collections/qghhqm/pointsofsignificance).
 For proteomics experiments it is important to differentiate between experimental units and observational units. Experimental units are the subjects/objects on which one applies a given treatment, often also denoted as biological repeats. In a proteomics experiment, the number of experimental units is typically rather limited (e.g. three biological repeats of a knockout and a wild-type sample). The measurements, however, are applied on the observational units. In a shotgun proteomics experiment, these are the individual peptide intensities. For many proteins, there are thus multiple observations/peptide intensities for each experimental unit, which can be considered as technical replicates or pseudo-replicates [3]. Hence, one can make very precise estimates on the technical variability of the intensity measurements; i.e. how strongly intensity measurements fluctuate for a particular protein in a particular sample. However, the power to generalize the effects observed in the sample to the whole population remains limited as most biological experiments typically only have a limited number of biological repeats [4]. We thus strongly advise researchers to think upfront about their experimental design and to maximize the number of biological repeats (we suggest at least three biological repeats, and preferably more).
 
-#### 2.2.2 Starting MSqRob
+#### 2.2 Starting MSqRob
 
 When working with the online binder version, hit the binder button below:
 
@@ -34,11 +34,11 @@ The MSqRob App is launched:
 
 *Hint: Click on the question marks to get extra information about an input field.*
 
-### 2.2.3 The CPTAC A vs B dataset lab 3
+### 2.3 The CPTAC A vs B dataset lab 3
 
 Our first case-study is a subset of the data of the 6th study of the Clinical Proteomic Technology Assessment for Cancer (CPTAC). In this experiment, the authors spiked the Sigma Universal Protein Standard mixture 1 (UPS1) containing 48 different human proteins in a protein background of 60 ng/μL Saccharomyces cerevisiae strain BY4741 (MATa, leu2Δ0, met15Δ0, ura3Δ0, his3Δ1). Two different spike-in concentrations were used: 6A (0.25 fmol UPS1 proteins/μL) and 6B (0.74 fmol UPS1 proteins/μL) [5]. The raw data files can be downloaded from https://cptac-data-portal.georgetown.edu/cptac/public?scope=Phase+I (Study 6), the processed data can be downloaded by zipping the github repository [https://github.com/statOmics/pda/tree/data](https://github.com/statOmics/pda/tree/data), in the folder data/quantification/cptacAvsB_lab3. We limited ourselves to the data of LTQ-Orbitrap W at site 56. The data were searched with MaxQuant version 1.5.2.8, and detailed search settings were described in Goeminne et al. (2016) [1]. Three replicates are available for each concentration.
 
-### 2.2.3.1. The Input tab
+### 2.3.1. The Input tab
 
 Our first step is to choose an appropriate name for the project. This name, appended with a timestamp, will be used when downloading results from the analysis. Here, we use the name “project_CPTAC_AvsB”.
 Next, upload your peptides.txt file. This is the file that contains your peptide-level intensities. For a MaxQuant search [6], this peptides.txt file can be found by default in the “path_to_raw_files/combined/txt/” folder from the MaxQuant output, with “path_to_raw_files” the folder where raw files were saved. In this tutorial, we will use a MaxQuant peptides file from MaxQuant that can be found on the pdaData repository.
@@ -55,7 +55,7 @@ After setting your output location and uploading your files, your input screen s
 
 At this stage, everything is set for preprocessing and data exploration, which are implemented in the preprocessing tab.
 
-#### 2.2.3.2. The Preprocessing tab
+#### 2.3.2. The Preprocessing tab
 The preprocessing tab features different preprocessing options, many of which can be safely left at their default state. When you click the preprocessing tab, it should now look as follows:
 ![Figure 7. MSqRob Preprocessing tab](./figs/MSqRobPreprocessing1.png)
 
@@ -88,7 +88,7 @@ Razor peptides are peptides that cannot be uniquely attributed to a single prote
 
 You can further filter out reverse sequences (left over from the MaxQuant search) and potential contaminants proteins (such as keratin from the operator's skin and hair, or leftover trypsin from digestion) [10], by providing the column names of the peptides file that indicate these sequences in the “Filter columns” field.
 
-#### 2.2.4.3. The Summarization tab
+#### 2.4.3. The Summarization tab
 The preprocessing tab features different summarization options. When you click the preprocessing tab, the following screen is obtained:
 
 ![Figure 10. MSqRob Summarization tab](./figs/MSqRobSummarization1.png)
@@ -132,7 +132,7 @@ If you add text and save the result, the boot is again updated.
 Repeat this for the robust summarization method.
 Compare the MaxLFQ, median and robust summarization methods. What do you observe and try to explain this.
 
-##### 2.2.3.4. The Quantification tab
+##### 2.3.4. The Quantification tab
 
 The fixed effects need to be specified. Fixed effects are those effects for which all levels of interest are included in the experiment. They remain constant when repeating the experiment.
 For factor variables (e.g. genotype), the number of levels are typically small. Examples include genotype (when comparing specific genetic constitutions), treatment, gender (only two levels), … You should select “treatment” as a fixed effect, because it is the main effect of interest and it has a fixed number of levels, being one for each spike-in concentration. Effects of interest are nearly always fixed effects.
@@ -166,11 +166,11 @@ Select an area on the plot and double click to zoom in. Double click on an unsel
 
 *Hint: The results can be saved. Open the file “project_Timestamp_CPTAC_AvsB_results.xlsx” in the default download folder of your browser*
 
-#### 2.2.4 The Francisella dataset
+#### 2.4 The Francisella dataset
 A study on the facultative pathogen Francisella tularensis was conceived by Ramond et al. (2015) [12]. F. tularensis enters the cells of its host by phagocytosis. The authors showed that F. tularensis is arginine deficient and imports arginine from the host cell via an arginine transporter, ArgP, in order to efficiently escape from the phagosome and reach the cytosolic compartment, where it can actively multiply. In their study, they compared the proteome of wild type F. tularensis (WT) to ArgP-gene deleted F. tularensis (knock-out, D8). For this exercise, we use a subset of the F. tularensis dataset where bacterial cultures were grown in biological triplicate and each sample was run on a nanoRSLC-Q Exactive PLUS instrument. The data were searched with MaxQuant version 1.4.1.2.
 The data can be found on [https://github.com/statOmics/pda/tree/data](https://github.com/statOmics/pda/tree/data).
 
-##### 2.2.4.1. The Input tab
+##### 2.4.1. The Input tab
 Restart MSqRob GUI. The MSqRob settings for the Francisella dataset are very similar to the settings for the CPTAC dataset. Use the name “project_Francisella”. Next, upload the peptides.txt file from
 data/quantification/francisella on the pdaData repository.
 
@@ -180,14 +180,14 @@ Upon clicking the “Download Annotation Button” an excel file with your proje
 
 The excel file contains a row named run that includes the names of all runs that are included in the peptides.txt file. We now have to complete the file with information on the experimental design of the study. In our case, we only need to include one additional column with the genotype of the study (wild type, WT or knock out, D8). Once this has been done, you can use your experimental annotation file for your analysis.
 
-##### 2.2.4.2. The Preprocessing tab
+##### 2.4.2. The Preprocessing tab
 The preprocessing part is analogous as for the CPTAC example.
 
-##### 2.2.4.3. The Summarization tab
+##### 2.4.3. The Summarization tab
 
 The summarization part is analogous as for the CPTAC example.
 
-##### 2.2.4.4. The Quantification tab
+##### 2.4.4. The Quantification tab
 
 We again group by “Proteins”. The “Annotation columns” field allows retaining extra annotation columns that one might have added to the peptides file. Add “Protein names” and “GI number” to the “Annotation columns” field.
 
