@@ -18,13 +18,16 @@ Students can sharpen their background knowledge on Mass Spectrometry, Proteomics
 This course is oriented towards biologists and bioinformaticians with a particular interest in differential analysis for quantitative proteomics.
 
 ---
-### Statistical Software and Data
+
+### Statistical Data Analysis for Proteomics
+
+#### Software and Data
 
  - [Install and Launch Statistical Software](pages/software4stats.md)
  - [Download Tutorial Data](https://github.com/statOmics/pda/tree/data)
 
 
-### Detailed Program: Statistical Data Analysis for Proteomics
+#### Detailed Program
 
   1. Identification
   - Slides:  [False Discovery Rate and Target Decoy Approach](assets/1_Identification_Evaluation_Target_Decoy_Approach.pdf)
