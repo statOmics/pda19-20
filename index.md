@@ -39,4 +39,4 @@ This course is oriented towards biologists and bioinformaticians with a particul
 
 ---
 
-##### [Instructor](pages/instructor.md)
+##### [Instructor](pages/instructors.md)
