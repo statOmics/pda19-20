@@ -84,7 +84,7 @@ What do you conclude based on the MDS plot after quantile normalization (see als
 
 Razor peptides are peptides that cannot be uniquely attributed to a single protein or protein group. As we are uncertain from which protein group these peptides originate and their intensities might even be a combined value from multiple protein groups, we opt to remove these peptides by default. The option “Remove comprising protein groups” deals with peptides that are shared between protein groups.  This option removes all peptides in protein groups for which any of its peptides map to a protein that is also present in another smaller protein group.
 
-“Minimal number of peptides” indicates a threshold T for how many times a certain peptide sequence should be present in the data before being retained in the final analysis. Peptides that are identified at least T times are retained; other peptides are removed from the data. This value defaults to 2 and there is a very practical reason for this. Indeed, we need a parameter in the model for each peptide sequence. Adding a parameter for a single observation leads to perfect confounding in the model as there is no way to discern between the peptide-specific effect and the other effects for this observation. Note that this is not the same as applying the so-called “two-peptide rule” [9]. A protein identified by only one peptide can contribute to the estimation provided that the peptide is identified in multiple samples.
+“Minimal number of peptides” indicates a threshold T for how many times a certain peptide sequence should be present in the data before being retained in the final analysis. Peptides that are identified at least T times are retained; other peptides are removed from the data. This value defaults to 2 and there is a very practical reason for this. Indeed, we need to correct for the peptide effect. However, when a peptide occurs only once, the peptide effect cannot be estimated. Note that this is not the same as applying the so-called “two-peptide rule” [9]. A protein identified by only one peptide can contribute to the estimation provided that the peptide is identified in multiple samples.
 
 You can further filter out reverse sequences (left over from the MaxQuant search) and potential contaminants proteins (such as keratin from the operator's skin and hair, or leftover trypsin from digestion) [10], by providing the column names of the peptides file that indicate these sequences in the “Filter columns” field.
 
@@ -135,13 +135,13 @@ Compare the MaxLFQ, median and robust summarization methods. What do you observe
 ##### 2.3.4. The Quantification tab
 
 The fixed effects need to be specified. Fixed effects are those effects for which all levels of interest are included in the experiment. They remain constant when repeating the experiment.
-For factor variables (e.g. genotype), the number of levels are typically small. Examples include genotype (when comparing specific genetic constitutions), treatment, gender (only two levels), … You should select “treatment” as a fixed effect, because it is the main effect of interest and it has a fixed number of levels, being one for each spike-in concentration. Effects of interest are nearly always fixed effects.
+For factor variables (e.g. genotype), the number of levels are typically small. Examples include genotype (when comparing specific genetic constitutions), treatment, gender (only two levels), … You should select “treatment” as a fixed effect, because it is the main effect of interest and it has a fixed number of levels, being one for each spike-in concentration.
 The study does not contain random effects, so they can be left unspecified.
 MSqRob also exploits the link between ridge regression and mixed models [1].
 Ridge regression is implemented to prevent overfitting.
 Ridge regression, however, is considerably slower so for the exercises we will switch of ridge regression by selecting “No”.
 
-Set the “Number of contrasts” to 1. Contrasts are linear combination of the parameters in the model that quantify the effect of interest. In our case we model the data with a linear model that contains to parameters: a mean for every treatment group. We aim to compare the log average for the two treatment groups. So we only have one contrast of interest. Remember that we log-transformed the intensities:
+Set the “Number of contrasts” to 1. Contrasts are linear combination of the parameters in the model that quantify the effect of interest. In our case we model the data with a linear model that contains two parameters: a mean for every treatment group. We aim to compare the log average for the two treatment groups. So we only have one contrast of interest. Remember that we log-transformed the intensities:
 
 $$ log_2⁡FC=log_2⁡6B-log_2⁡6A=log_2⁡ \frac{6B}{6A} $$
 
@@ -152,10 +152,9 @@ In the statistical analysis we will then test the null hypothesis that
 $$ H0: log_2 ⁡6B-log_2 ⁡6A = 0 $$
 
 Against the alternative that
-$$ H0: log_2 ⁡6B-log_2 ⁡6A =\neq0 $$
+$$ H0: log_2 ⁡6B-log_2 ⁡6A \neq0 $$
 
-And we will falsify this null hypothesis for each protein separately. So, under the null hypothesis we reason that there is no effect of the spike-in treatment on the abundance of a specific protein. T
-he p-value of the statististical test than indicates the probability to observe an effect (fold change), that is as extreme or more extreme (equally or more up or down regulated) than what is observed in the sample, by random change (when the null hypothesis is true and when there is in reality no effect of the treatment).
+And we will falsify this null hypothesis for each protein separately. So, under the null hypothesis we reason that there is no effect of the spike-in treatment on the abundance of a specific protein. The p-value of the statististical test than indicates the probability to observe an effect (fold change), that is as extreme or more extreme (equally or more up or down regulated) than what is observed in the sample, by random change (when the null hypothesis is true and when there is in reality no effect of the treatment).
 
 What is the difference between setting 6B to 1 and 6A to -1 versus setting 6B to -1 and 6A to 1? [4.6.4f]
 

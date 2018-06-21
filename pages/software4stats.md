@@ -5,36 +5,32 @@ title: Software for Stats Tutorials
 
 There are three options to work with the software:
 
-1. Using an online binder docker environment that launches R studio immediately.
-2. Using an online binder docker environment that launches a Jupyter binder environment.
-3. Using an offline docker that launches a Jupyter environment.
+1. Using an online binder docker environment that launches R studio immediately. Remark: This tends to be unstable in combination with shiny Apps, the App gets disconnected when there is no browser activity in the App window.
+2. Using an online binder docker environment that launches a Jupyter binder environment. See Note above.
+3. Using an offline docker that launches a Jupyter environment. Most stable way to
 
 #### Getting started
 
-1. Launch an R studio interface in an R docker along with bioconductor packages for proteomics.
+- Launch an R studio interface in an R docker along with bioconductor packages for proteomics.
 
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/pda/master?urlpath=rstudio)
 
-2. Alternatively, you can launch R studio via the jupyter binder environment:
+-  Alternatively, you can launch R studio via the jupyter binder environment:
 
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/pda/master)
 
 Once inside Jupyter Notebook, RStudio Server should be an option under the menu
 "New":
 
-![](./pages/figs/rstudio-session.jpg)
+![](pages/figs/rstudio-session.jpg)
 
-3. You can install your own local docker by downloading the entire repository and invoking
+- You can install your own local docker by downloading the entire repository and invoking
 
 ```
 docker build <path to proteomicsShortCourse directory> -t msqrob_docker
 ```
 
-#### Install the Docker on local machines at GBTP.
-
-Tentative for participants at GBTP.
-In the PC-roams the docker is available on the share.
-You only have to install the docker  do that once for every machine.
+#### Install the Docker on local machines
 
 1. Open a terminal
 ![Figure Launch Docker 1](./figs/installDocker1.png)
@@ -45,13 +41,14 @@ You only have to install the docker  do that once for every machine.
 sudo docker load -i /media/gtpb_shared_drive/To_Participant/statsDocker/msqrob_docker.tar
 ```
 
-You have to run the command as a super user (sudo) because normal users do not have the permission to launch docker on the PCs in the tutorial roam.
+You have to run the command as a super user
+`sudo` because normal users do not have the permission to launch docker on the PCs in the tutorial roam.
 The `docker` command launches docker.
 The `load` command will enable a new docker to be installed locally.
 The switch `-i` stand for input
 Then we give the full path to the docker, which is available on the share.
 
-![Figure Launch Docker 2](./figs/installDocker2.png)
+![Figure Launch Docker 2](pages/figs/installDocker2.png)
 
 Now the docker installations starts.
 
@@ -75,7 +72,7 @@ We can interact with the docker via a web browser.
 
 3. Open Firefox
 
-![Figure Launch Docker 1](./figs/launchDocker1b.png)
+![Figure Launch Docker 1](pages/figs/launchDocker1b.png)
 
 A new window will appear where you have to fill a the token.
 You can copy the link token from the terminal.
@@ -84,11 +81,16 @@ Here, it was,
 http://c924e5fb54b5:8888/?token=dd01e2e228d8200e8e2cba2f8fff2a9396f4c22b9068c4d5&token=dd01e2e228d8200e8e2cba2f8fff2a9396f4c22b9068c4d5
 ```
 
-we first replace the machine name `c924e5fb54b5` by localhost and paste the adjusted adress in the browser.
+we first replace the machine name `c924e5fb54b5` by localhost and paste the adjusted address in the browser.
 ```
 http://localhost:8888/?token=dd01e2e228d8200e8e2cba2f8fff2a9396f4c22b9068c4d5&token=dd01e2e228d8200e8e2cba2f8fff2a9396f4c22b9068c4d5
 ```
 
+Alternatively, you can connect paste the address
+ ```
+http://localhost:8888/
+ ```
+  in the browser and paste the token when requested.
 
 Note, that copying in linux is possible via highlighting text. Pasting can be done by pushing the middle mouse button.
 
