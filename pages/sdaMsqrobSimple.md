@@ -20,7 +20,9 @@ When working with the online binder version, hit the binder button below:
 
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/pda/master?urlpath=rstudio)
 
-Now an interactive statistical programming environment will open that is running on a cloud server. In this tutorial we will not make use of the powerful R-scripting environment, but we will launch an App with a GUI instead. Open the launchMSqRobShinyApp.R file by clicking on the file in the bottom right panel.
+If you use the software on a more regular basis building a local docker environment is advised, (see [software page](pages/software4stats.md)).
+
+Upon hitting the binder button an interactive statistical programming environment will open that is running on a cloud server. In this tutorial we will not make use of the powerful R-scripting environment, but we will launch an App with a GUI instead. Open the launchMSqRobShinyApp.R file by clicking on the file in the bottom right panel.
 
 ![Figure 2. Rstudio](./figs/rstudioWindowEvalDecoy.png)
 
