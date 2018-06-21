@@ -65,7 +65,7 @@ Upon hitting the binder button an interactive statistical programming environmen
 
 A novel panel opens in the topleft. Click on runApp to launch the EvalDecoy app.
 
-<img src="./figs/rstudioWindowEvalDecoy2.png" height="200">
+<img src="./figs/rstudioWindowForEvalDecoy2.png" height="200">
 
 The App is launched.
 
