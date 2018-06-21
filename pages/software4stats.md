@@ -22,7 +22,7 @@ There are three options to work with the software:
 Once inside Jupyter Notebook, RStudio Server should be an option under the menu
 "New":
 
-![](/pages/figs/rstudio-session.jpg)
+![](./pages/figs/rstudio-session.jpg)
 
 - You can install your own local docker by downloading the entire repository and invoking
 
