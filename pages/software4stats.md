@@ -30,7 +30,8 @@ devtools::install_github("statOmics/MSqRob@MSqRob0.7.5")
 
 - Download and unzip pda master tree
 	- Go to the pda site on github: [https://github.com/statOmics/pda](https://github.com/statOmics/pda)
-	- Click on the clone/download button and select download zip ![](.fig/downloadPdaMasterTree.png)
+	- Click on the clone/download button and select download zip 
+![](.fig/downloadPdaMasterTree.png)
 	- Unzip the repository
 	- Open Rstudio and go to the unzipped folder
 
