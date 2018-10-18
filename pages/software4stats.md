@@ -9,6 +9,7 @@ There are three options to work with the software:
 2. Using an online binder docker environment that launches R studio immediately. Remark: This tends to be unstable in combination with shiny Apps, the App gets disconnected when there is no browser activity in the App window.
 3. Using an online binder docker environment that launches a Jupyter binder environment. See Note above.
 4. Using an offline docker that launches a Jupyter environment. Most stable way to
+5. Portable windows R/Rstudio/MSqRob version: [Download portable windows version](https://users.ugent.be/~lclement/MSqRobPortable.zip)
 
 ### 1. Local installation
 
