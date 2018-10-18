@@ -31,12 +31,12 @@ devtools::install_github("statOmics/MSqRob@MSqRob0.7.5")
 - Download and unzip pda master tree
 	- Go to the pda site on github: [https://github.com/statOmics/pda](https://github.com/statOmics/pda)
 	- Click on the clone/download button and select download zip 
-![](.fig/downloadPdaMasterTree.png)
+![](./fig/downloadPdaMasterTree.png)
 	- Unzip the repository
 	- Open Rstudio and go to the unzipped folder
 
 
-###2. Getting started with online Docker image
+### 2. Getting started with online Docker image
 
 - Launch an R studio interface in an R docker along with bioconductor packages for proteomics.
 
@@ -51,13 +51,18 @@ Once inside Jupyter Notebook, RStudio Server should be an option under the menu
 
 ![](./figs/rstudio-session.jpg)
 
-- You can install your own local docker by downloading the entire repository and invoking
+### 3. Install the Docker locally
+
+#### 3.1 Generate docker image
+
+- You can install your own local docker by downloading the entire repository and invoking in a console:
 
 ```
 docker build <path to proteomicsShortCourse directory> -t msqrob_docker
 ```
 
-### Install the Docker on local machines
+
+#### 3.2 Install the Docker on local machines
 
 1. Open a terminal
 ![Figure Launch Docker 1](./figs/installDocker1.png)
@@ -79,7 +84,7 @@ Then we give the full path to the docker, which is available on the share.
 
 Now the docker installations starts.
 
-#### Launch the Docker
+#### 3.3 Launch the Docker
 
 1. Open a terminal
 
@@ -99,7 +104,7 @@ We can interact with the docker via a web browser.
 
 3. Open Firefox
 
-![Figure Launch Docker 1](pages/figs/launchDocker1b.png)
+![Figure Launch Docker 1](./figs/launchDocker1b.png)
 
 A new window will appear where you have to fill a the token.
 You can copy the link token from the terminal.
