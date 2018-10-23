@@ -18,7 +18,7 @@ For proteomics experiments it is important to differentiate between experimental
 
 When working with the online binder version, hit the binder button below:
 
-[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/pda/master?urlpath=rstudio)
+[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/shinyTest/master?urlpath=rstudio)
 
 If you use the software on a more regular basis building a local docker environment is advised, (see [software page](./software4stats.md)).
 

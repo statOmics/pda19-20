@@ -41,11 +41,11 @@ devtools::install_github("statOmics/MSqRob@MSqRob0.7.5")
 
 - Launch an R studio interface in an R docker along with bioconductor packages for proteomics.
 
-[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/pda/master?urlpath=rstudio)
+[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/shinyTest/master?urlpath=rstudio)
 
 -  Alternatively, you can launch R studio via the jupyter binder environment:
 
-[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/pda/master)
+[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/shinyTest/master)
 
 Once inside Jupyter Notebook, RStudio Server should be an option under the menu
 "New":
