@@ -195,3 +195,19 @@ We again group by “Proteins”. The “Annotation columns” field allows reta
 Which contrast do we want to test now? [2.4.4a]
 
 Give the interpretation of the contrast for your top hit? [2.4.4b]
+
+#### 2.5. Breast cancer example
+
+Eighteen Estrogen Receptor Positive Breast cancer tissues from from patients treated with tamoxifen upon recurrence have been assessed in a proteomics study. Nine patients had a good outcome (or) and the other nine had a poor outcome (pd).
+The proteomes have been assessed using an LTQ-Orbitrap  and the thermo output .RAW files were searched with MaxQuant (version 1.4.1.2) against the human proteome database (FASTA version 2012-09, human canonical proteome).
+
+Three peptides txt files are available:
+
+1. For a 3 vs 3 comparison
+2. For a 6 vs 6 comparison
+3. For a 9 vs 9 comparison
+
+The data can be found at [https://github.com/statOmics/pda/tree/data](https://github.com/statOmics/pda/tree/data).
+in the folder data/quantification/cancer
+
+##### 2.5.1. Perform an MSqRob analysis for each peptide file. What are the differences and try to explain why.
