@@ -24,11 +24,11 @@ If you use the software on a more regular basis building a local docker environm
 
 Upon hitting the binder button an interactive statistical programming environment will open that is running on a cloud server. In this tutorial we will not make use of the powerful R-scripting environment, but we will launch an App with a GUI instead. Open the launchMSqRobShinyApp.R file by clicking on the file in the bottom right panel.
 
-![Figure 2. Rstudio](./figs/rstudioWindowEvalDecoy.png)
+![Figure 2. Rstudio](./figs/rstudioWindowMsqrob1.png)
 
-A novel panel opens in the topleft. Click on runApp to launch the EvalDecoy app.
+A novel panel opens in the topleft. Click on runApp to launch the MSqROb app.
 
-![Figure 3. Rstudio](./figs/rstudioWindowEvalDecoy.png)
+![Figure 3. Rstudio](./figs/rstudioWindowMsqrob2.png)
 
 The MSqRob App is launched:
 
