@@ -53,7 +53,7 @@ The data can be found in the folder data/quantification/cptac
 
 ##### 3.3.1. Which factors will you use in the mean model?
 
-##### 3.3.2. Evaluation of contrasts of interest. We would like to perform all pairwise comparisons between each of the treatments. How many contrasts do we need for this, specify each contrast
+##### 3.3.2. Perform all pairwise comparisons between each of the spike-in conditions. How many contrasts do we need for this, specify each contrast
 
 ##### 3.3.3. Interpret the log 2 transformed fold change for the top hit of the comparison involving treatment B vs A.
 
@@ -61,10 +61,10 @@ The data can be found in the folder data/quantification/cptac
 
 #### 3.4 Heart dataset
 
-Researchers have assessed the proteome in different regions of the heart for 3 patients (identifiers 3, 4, and 8). For each patient they sampled the left atrium (LA), right atrium (RA), left ventricle (LV), right ventricle (RV), septum of the atrium (sepA) and the septum of the ventricle (sepV).
+Researchers have assessed the proteome in different regions of the heart for 3 patients (identifiers 3, 4, and 8). For each patient they sampled the left atrium (LA), right atrium (RA), left ventricle (LV) and the right ventricle (RV). The data are a small subset of the public dataset  https://www.ebi.ac.uk/pride/archive/projects/PXD006675/files
 
-The researchers are mainly interested in comparing the ventricular to the atrial proteome.
-Particularly, they would like to compare the left atrium to the left ventricle, the right atrium to the right ventricle, the atrial septum to the ventricular septum, the average ventricular vs atrial proteom (without septum) and if the ventricular vs atrium proteome shifts differ between the left and right heart region.
+Suppose that researchers are mainly interested in comparing the ventricular to the atrial proteome.
+Particularly, they would like to compare the left atrium to the left ventricle, the right atrium to the right ventricle, the average ventricular vs atrial proteome and if ventricular vs atrial proteome shifts differ between left and right heart region.
 
 ##### 3.3.1. Which factors will you use in the mean model?
 
