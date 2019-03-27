@@ -72,4 +72,4 @@ Particularly, they would like to compare the left atrium to the left ventricle, 
 
 ##### 3.3.3. Interpret the estimate for the top hit of each contrast?
 
-##### 3.3.4. Try to explain the difference in the number of significant proteins between the contrasts that do not involve the septum?
+##### 3.3.4. Try to explain why there is such a large difference in the number of significant proteins that are found between the contrasts?
