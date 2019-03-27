@@ -61,6 +61,8 @@ The data can be found in the folder data/quantification/cptac
 
 #### 3.4 Heart dataset
 
+![Figure 4. Heart](./figs/heart.png)
+
 Researchers have assessed the proteome in different regions of the heart for 3 patients (identifiers 3, 4, and 8). For each patient they sampled the left atrium (LA), right atrium (RA), left ventricle (LV) and the right ventricle (RV). The data are a small subset of the public dataset  [https://www.ebi.ac.uk/pride/archive/projects/PXD006675/files](https://www.ebi.ac.uk/pride/archive/projects/PXD006675/files)
 
 Suppose that researchers are mainly interested in comparing the ventricular to the atrial proteome.
