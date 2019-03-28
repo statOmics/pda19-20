@@ -45,25 +45,31 @@ The MSqRob App is launched:
 
 *Hint: Click on the question marks to get extra information about an input field.*
 
-#### 3.3 Blocking: CPTAC dataset
+#### 3.3 Blocking: Mouse T-cell example
 
-The 6th study of the Clinical Proteomic Technology Assessment for Cancer (CPTAC). In this experiment, the authors spiked the Sigma Universal Protein Standard mixture 1 (UPS1) containing 48 different human proteins in a protein background of 60 ng/μL Saccharomyces cerevisiae strain BY4741 (MATa, leu2Δ0, met15Δ0, ura3Δ0, his3Δ1). Five different spike-in concentrations were used: 6A (0.25 fmol UPS1 proteins/μL), 6B (0.74 fmol UPS1 proteins/μL), 6C (2.22 fmol UPS1 proteins/μL), 6D (6.67 fmol UPS1 proteins/μL) and 6E (20 fmol UPS1 proteins/μL) [6]. The raw data files can be downloaded from [https://cptac-data-portal.georgetown.edu/cptac/public?scope=Phase+I](https://cptac-data-portal.georgetown.edu/cptac/public?scope=Phase+I) (Study 6). We limited ourselves to the data of LTQ-Orbitrap at site 86, LTQ-Orbitrap O at site 65 and LTQ-Orbitrap W at site 56. The data were searched with MaxQuant version 1.5.2.8, and detailed search settings were described in Goeminne et al. (2016) [1]. The experiment is conceived as a randomized complete block design with lab as a blocking factor. For every lab, 3 replicates are available for each concentration.
+Duguet et al. 2017 compared the proteomes of mouse regulatory T cells (Treg) and conventional T cells (Tconv) in order to discover differentially regulated proteins between these two cell populations. For each biological repeat the proteomes were extracted for both Treg and Tconv cell pools, which were purified by flow cytometry. The data in data/quantification/mouseTcell on the pdaData repository are a subset of the data [PXD004436](https://www.ebi.ac.uk/pride/archive/projects/PXD004436) on PRIDE.
 
-The data can be found in the folder data/quantification/cptac
+![Figure 4. Design Mouse Study](./figs/mouseTcell_RCB_design.png)
 
-##### 3.3.1. Which factors will you use in the mean model?
+Three subsets of the data are avialable:
 
-##### 3.3.2. Perform all pairwise comparisons between each of the spike-in conditions. How many contrasts do we need for this, specify each contrast
 
-##### 3.3.3. Interpret the log 2 transformed fold change for the top hit of the comparison involving treatment B vs A.
+- peptidesCRD.txt: contains data of Tconv cells for 4 bio-repeats and Treg cells for 4 bio-repeats
+- peptidesRCB.txt: contains data for 4 bio-repeats only, but for each bio-repeat the Treg and Tconv proteome is profiled.   
+- peptides.txt: contains data of Treg and Tconv cells for 7 bio-repeats
 
-##### 3.3.4. What do you observe for the comparisons involving treatment D and/or E? Can you explain this?
+##### 3.1. How would you analyse the CRD data?
+
+##### 3.2. How would you analyse the RCB data?
+
+##### 3.1. Try to explain the difference in the number of proteins that can be discovered with both designs?
+
 
 #### 3.4 Heart dataset
 
 ![Figure 4. Heart](./figs/heart.png)
 
-Researchers have assessed the proteome in different regions of the heart for 3 patients (identifiers 3, 4, and 8). For each patient they sampled the left atrium (LA), right atrium (RA), left ventricle (LV) and the right ventricle (RV). The data are a small subset of the public dataset  [https://www.ebi.ac.uk/pride/archive/projects/PXD006675/files](https://www.ebi.ac.uk/pride/archive/projects/PXD006675/files)
+Researchers have assessed the proteome in different regions of the heart for 3 patients (identifiers 3, 4, and 8). For each patient they sampled the left atrium (LA), right atrium (RA), left ventricle (LV) and the right ventricle (RV). The data are a small subset of the public dataset  [PXD006675](https://www.ebi.ac.uk/pride/archive/projects/PXD006675) on PRIDE.
 
 Suppose that researchers are mainly interested in comparing the ventricular to the atrial proteome.
 Particularly, they would like to compare the left atrium to the left ventricle, the right atrium to the right ventricle, the average ventricular vs atrial proteome and if ventricular vs atrial proteome shifts differ between left and right heart region.
