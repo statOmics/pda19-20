@@ -428,7 +428,7 @@ shinyjs::onclick("button_doRidge",
       if(isTRUE(input$borrowRandom)){par_squeeze <- c(par_squeeze, random)}
       if(isTRUE(input$borrowFixed)){par_squeeze <- c(par_squeeze,"ridgeGroup.1")}
       if (input$doRidge==0) shrinkage.fixed <- c(0,rep(0,length(fixed))) else shrinkage.fixed=NULL
-      models <- fit.model(protdata=proteins, response="quant_value", fixed=fixed, random=random, par_squeeze=par_squeeze, printProgress=TRUE, shiny=TRUE, message_fitting="Fitting models...", message_thetas="Extracting variances...", message_squeeze="Squeezing variances...", message_update="Updating models...",shrinkage.fixed=shrinkage.fixed)
+      models <- fit.model(protdata=proteins, response="quant_value", fixed=fixed, random=random, par_squeeze=par_squeeze, printProgress=TRUE, shiny=TRUE, message_fitting="Fitting models...", message_thetas="Extracting variances...", message_squeeze="Squeezing variances...", message_update="Updating models...",shrinkage.fixed=shrinkage.fixed,robust_var=FALSE)
 
       #We save the squeezed models!
 
