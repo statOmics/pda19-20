@@ -539,7 +539,7 @@ sidebarLayout(
         tags$label("Ridge regression for fixed effects?", `for`="doRidge", class="MSqRob_label"),
         tags$button(id="button_doRidge", tags$sup("[?]"), class="MSqRob_tooltip"),
   radioButtons("doRidge", label=NULL,
-                   c("Yes" = 1,"No"=0
+                   c("No"=0,"Yes" = 1
                       )),
   hidden(helpText(id="tooltip_doRidge","
                   When \"Yes\" is selected the fixed effects are estimated using ridge regression. This shrinks the estimates with low evidence for differential abundance towards zero and improves the performance.
