@@ -26,7 +26,7 @@ Figure 1. Example of a good (A) and a bad (B) design. In design A, both the gree
 
 When working with the online binder version, hit the binder button below:
 
-[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/shinyTest/master?urlpath=rstudio)
+[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/v2/gh/statOmics/pda/master?urlpath=rstudio)
 
 
 If you use the software on a more regular basis building a local docker environment is advised, (see [software page](./software4stats.md)).
