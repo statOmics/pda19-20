@@ -53,7 +53,7 @@ Once inside Jupyter Notebook, RStudio Server should be an option under the menu
 
 ![](./figs/rstudio-session.jpg)
 
-### 3. Install the Docker locally
+### 3. Install the docker container locally
 
 #### 3.1 Generate and install docker container
 
@@ -92,7 +92,7 @@ Now the docker installations starts.
 
 Note, the installation only has to be executed done once.
 
-#### 3.2 Launch the docker image.
+#### 3.2 Launch the docker container
 
 Upon installation, we can launch the docker image on our machine.
 
@@ -145,7 +145,7 @@ Press enter! Then the jupyter hub environment will launch.
 Select New>Rstudio Session to launch the statistical software R.
 Now an interactive statistical programming environment will open in the browser that runs on a cloud server.
 
-### Close the Docker
+### Close the docker container
 
 Only if you work with a local Docker.
 1. Close RStudio
