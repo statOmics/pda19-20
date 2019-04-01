@@ -9,7 +9,6 @@ There are three options to work with the software:
 2. Using an online binder docker environment that launches R studio immediately. Remark: This tends to be unstable in combination with shiny Apps, the App gets disconnected when there is no browser activity in the App window.
 3. Using an online binder docker environment that launches a Jupyter binder environment. See Note above.
 4. Using an offline docker that launches a Jupyter environment. Most stable way to
-5. Portable windows R/Rstudio/MSqRob version: [Download portable windows version](https://users.ugent.be/~lclement/MSqRobPortable.zip)
 
 ### 1. Local installation
 
@@ -31,13 +30,15 @@ devtools::install_github("statOmics/MSqRob@MSqRob0.7.5")
 
 - Download and unzip pda master tree
 	- Go to the pda site on github: [https://github.com/statOmics/pda](https://github.com/statOmics/pda)
-	- Click on the clone/download button and select download zip 
+	- Click on the clone/download button and select download zip
 ![](./fig/downloadPdaMasterTree.png)
 	- Unzip the repository
 	- Open Rstudio and go to the unzipped folder
 
 
-### 2. Getting started with online Docker image
+### 2. Getting started with MSqRob using an online docker container
+
+Docker is a platform to develop, deploy, and run applications inside containers, improving security, reproducibility, and scalability in software development and data science. Docker containers differ from virtual machines because they take fewer resources, are very portable, and are faster to spin up.
 
 - Launch an R studio interface in an R docker along with bioconductor packages for proteomics.
 
@@ -54,28 +55,32 @@ Once inside Jupyter Notebook, RStudio Server should be an option under the menu
 
 ### 3. Install the Docker locally
 
-#### 3.1 Generate docker image
+#### 3.1 Generate and install docker container
 
-- You can install your own local docker by downloading the entire repository and invoking in a console:
+- You can install your own local docker by downloading the entire PDA master branch of the  githyb repository and invoking in a console:
 
 ```
 docker build <path to proteomicsShortCourse directory> -t msqrob_docker
 ```
+- This only has to be done once and generates a container that is always exactly alike.
 
+#### 3.1b Alternatively we can install from existing docker image
 
-#### 3.2 Install the Docker on local machines
+A docker image is a blue print of a docker container that can be used to quickly generate containers that are all exactly alike.
 
 1. Open a terminal
 ![Figure Launch Docker 1](./figs/installDocker1.png)
 
-2. type
+2. In the Gulbenkian Institute you find the docker image on your local machine. Type
 
 ```
 sudo docker load -i /media/gtpb_shared_drive/To_Participant/statsDocker/msqrob_docker.tar
 ```
 
-You have to run the command as a super user
-`sudo` because normal users do not have the permission to launch docker on the PCs in the tutorial roam.
+If the docker image is on another location, you have to adjust the path "/media/gtpb_shared_drive/To_Participant/statsDocker/msqrob_docker.tar" to "yourPathName/yourDockerImageName".
+
+We run the command as a super user
+`sudo` because normal users do not have the permission to launch docker on the PCs in the tutorial room.
 The `docker` command launches docker.
 The `load` command will enable a new docker to be installed locally.
 The switch `-i` stand for input
@@ -85,7 +90,11 @@ Then we give the full path to the docker, which is available on the share.
 
 Now the docker installations starts.
 
-#### 3.3 Launch the Docker
+Note, the installation only has to be executed done once.
+
+#### 3.2 Launch the docker image.
+
+Upon installation, we can launch the docker image on our machine.
 
 1. Open a terminal
 
