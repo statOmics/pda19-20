@@ -149,12 +149,11 @@ We will make use of the boxplot at the bottom of the quantification tab.
 It visualizes the fold change estimates of the current contrast for all proteins in the table.
 We can now filter the ups proteins by typing "ups" in the search field above the table. Now all yeast proteins are removed from the results table and a boxplot of the ups protein fold changes will be made.
 
-![Figure 10. MSqRob Fold Change Boxplot](./figs/msqrobRobSumFCups.png)
+![Figure 10. MSqRob Fold Change Boxplot](./figs/msqrobSumFCups.png)
 
 [2.3.4.a] Note, that we know the real fold change for the spike in proteins. What do you observe?
 
 [2.3.4.b] Now select all yeast proteins. What is the real fold change and what do you observe?  
-S proteins were spiked in at a 3 times higher concentration.  
 
 [2.3.4.c] Repeat this for the median summarization method. What do you observe, how does that compare to the robust summarisation and try to explain this?
 
