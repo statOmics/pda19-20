@@ -105,34 +105,6 @@ We then select the robust method, which we will use in the downstream data analy
 
 What do you see upon summarization with the robust method and why would that be the case? [2.3.3.a]
 
-##### Intermezzo: Evaluate Summarization.
-We further explore the difference between summarization methods.
-Close the GUI and go back to the rstudio window.
-If the console is still active you can hit the stop buttom at the lower left panel.
-
-Click on the folder "rmarkdownExamples" in the right panel and open the file assessFoldChangesMaxLFQ.Rmd.
-
-![Figure 11. Intermezzo: Evaluation of Summarization](./figs/rstudioFcAnalysis.png)
-
-Click on the upload button to upload summarized data. We will first upload the maxLFQ summarization values. They can be found on
-the downloaded data folder proteomicsShortcourseData > data > quantification > cptacAvsB_lab3 > lfqSummariesLab3.xlsx.
-
-Now the data and the script are present in rstudio.
-In R studio, we make use of an R book, which enables us to weave text and R code.
-The R book can be adaptively expanded so that you can document your analysis.
-Every data analysis step is carried out in an R chunk, which starts with
-```{r}
-```
-
-First hit the preview button and an html file will appear.
-The chunks can be excuted by pushing the git button.
-The html will now be updated if you save the R book.
-If you add text and save the result, the boot is again updated.
-
-
-[2.3.3.a] Open your summarized expression value file for the median summarization (file with earliest time stamp). Calculate the average summarized log expression values for both treatments, the log Fold Change (difference between average summarized log expression value in treatment B and A) and make a box plot of the Fold Changes.
-Repeat this for the robust summarization method.
-Compare the MaxLFQ, median and robust summarization methods. What do you observe and try to explain this.
 
 ##### 2.3.4. The Quantification tab
 
@@ -156,7 +128,7 @@ $$ H0: log_2 ⁡6B-log_2 ⁡6A = 0 $$
 Against the alternative that
 $$ H0: log_2 ⁡6B-log_2 ⁡6A \neq0 $$
 
-And we will falsify this null hypothesis for each protein separately. So, under the null hypothesis we reason that there is no effect of the spike-in treatment on the abundance of a specific protein. The p-value of the statististical test than indicates the probability to observe an effect (fold change), that is as extreme or more extreme (equally or more up or down regulated) than what is observed in the sample, by random change (when the null hypothesis is true and when there is in reality no effect of the treatment).
+And we will falsify this null hypothesis for each protein separately. So, under the null hypothesis we reason that there is no effect of the spike-in treatment on the abundance of a specific protein. The p-value of the statistical test than indicates the probability to observe an effect (fold change), that is as extreme or more extreme (equally or more up or down regulated) than what is observed in the sample, by random change (when the null hypothesis is true and when there is in reality no effect of the treatment).
 
 What is the difference between setting 6B to 1 and 6A to -1 versus setting 6B to -1 and 6A to 1? [4.6.4f]
 
@@ -166,6 +138,28 @@ Click on some dots in the Volcano plot to see the underlying data. You can again
 Select an area on the plot and double click to zoom in. Double click on an unselected area to reset the plot window. Selecting a protein in the “Results table” results in selecting it on the Volcano plot.
 
 *Hint: The results can be saved. Open the file “project_Timestamp_CPTAC_AvsB_results.xlsx” in the default download folder of your browser*
+
+##### 2.3.4. Evaluate Summarization.
+We further explore the difference between summarization methods.
+We first assess the quality of the fold change estimates for the robust summarization.
+We will make use of the boxplot at the bottom of the quantification tab.
+
+![Figure 10. MSqRob Fold Change Boxplot](./figs/msqrobRobSumFCAll.png)
+
+It visualizes the fold change estimates of the current contrast for all proteins in the table.
+We can now filter the ups proteins by typing "ups" in the search field above the table. Now all yeast proteins are removed from the results table and a boxplot of the ups protein fold changes will be made.
+
+![Figure 10. MSqRob Fold Change Boxplot](./figs/msqrobRobSumFCups.png)
+
+[2.3.4.a] Note, that we know the real fold change for the spike in proteins. What do you observe?
+
+[2.3.4.b] Now select all yeast proteins. What is the real fold change and what do you observe?  
+S proteins were spiked in at a 3 times higher concentration.  
+
+[2.3.4.c] Repeat this for the median summarization method. What do you observe, how does that compare to the robust summarisation and try to explain this?
+
+[2.3.4.c] Repeat the analysis using the MaqLFQ summarization. You can use the proteinGroupsModForMsQrobAnalysis.txt file for this purpose. Read the file as the peptides file. Note that the summarization has already be conducted by the MaxQuant software so you can select the summarisation method none in the summarization tab. What do you observe, how does that compare to the robust summarisation and try to explain this?
+
 
 #### 2.4 The Francisella dataset
 A study on the facultative pathogen Francisella tularensis was conceived by Ramond et al. (2015) [12]. F. tularensis enters the cells of its host by phagocytosis. The authors showed that F. tularensis is arginine deficient and imports arginine from the host cell via an arginine transporter, ArgP, in order to efficiently escape from the phagosome and reach the cytosolic compartment, where it can actively multiply. In their study, they compared the proteome of wild type F. tularensis (WT) to ArgP-gene deleted F. tularensis (knock-out, D8). For this exercise, we use a subset of the F. tularensis dataset where bacterial cultures were grown in biological triplicate and each sample was run on a nanoRSLC-Q Exactive PLUS instrument. The data were searched with MaxQuant version 1.4.1.2.
