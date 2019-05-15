@@ -511,6 +511,14 @@ shinyjs::onclick("button_doRidge",
   })
 
 
+###boxplotFC
+makeBoxplotFC<-function(dataset,estimate)
+{
+s = input$table_rows_all
+boxplot(dataset()[s,estimate()], xlab="estimate",horizontal=TRUE,ylim=range(dataset()[[estimate()]],na.rm=TRUE))
+}
+
+output$boxplotFC <- renderPlot(makeBoxplotFC(data,estimate))
 
   ###Volcano plot###
 

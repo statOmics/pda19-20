@@ -687,6 +687,7 @@ htmlOutput("downloadButtonResults")
          ),
 
 	fluidRow(column(width = 12, h4("Results table"),DT::dataTableOutput('table')))
+  , fluidRow(column(width = 12, plotOutput("boxplotFC", height = 200)))
      	)
     )
 )
