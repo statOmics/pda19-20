@@ -101,7 +101,7 @@ We first select the naive median summarization method and hit the “Start Summa
 
 ![Figure 10. MSqRob Summarization tab](./figs/MSqRobSummarization2.png)
 
-We then select the robust method, which we will use in the downstream data analysis method so as to implement the two-stage MSqRob procedure. Also download the summarization results.
+We then select the robust method, which we will use in the downstream data analysis method so as to implement the two-stage MSqRob procedure. 
 
 What do you see upon summarization with the robust method and why would that be the case? [2.3.3.a]
 
