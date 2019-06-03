@@ -78,11 +78,11 @@ Why do we choose base 2? (Hint: think of the interpretation later on!) [2.3.2.b]
 The next step is normalization. It is difficult to propose a one-size-fits-all normalization because the nature and extent of bias in the data are generally unknown. Thus, relative performance of different normalization methods might be different in different datasets [8].
 
 Why do we normalize our data? [2.3.2.c]
-In order to see the effects of different normalization approaches, select “lab” as the color variable in the right panel. Try changing the normalization to center “median” and “vsn” and see what happens. The impact of the different methods is not that large, but it will become more important in the other examples. For this tutorial, we will choose quantile normalization (“quantiles”).
+In order to see the effects of different normalization approaches, select “lab” as the color variable in the right panel. Try changing the normalization to center “median” and see what happens. The impact of the different methods is not that large, but it will become more important in the other examples. For this tutorial, we will choose quantile normalization (“quantiles”).
 
 What is quantile normalization? [2.3.2d]
 
-What do you conclude based on the MDS plot after quantile normalization (see also Fig. 4)? [2.3.2e]
+What can you derive from the MDS plot after quantile normalization (see also Fig. 4)? [2.3.2e]
 
 Razor peptides are peptides that cannot be uniquely attributed to a single protein or protein group. As we are uncertain from which protein group these peptides originate and their intensities might even be a combined value from multiple protein groups, we opt to remove these peptides by default. The option “Remove comprising protein groups” deals with peptides that are shared between protein groups.  This option removes all peptides in protein groups for which any of its peptides map to a protein that is also present in another smaller protein group.
 
@@ -97,7 +97,7 @@ The preprocessing tab features different summarization options. When you click t
 
 When no summarization is selected a regular MSqRob analysis can be conducted starting from peptide intensities. When robust summarization is applied, the novel and much faster two-stage approach is used to fit the MSqRob model. Mean and median summarization are also implemented, but mainly for didactical reasons and to show the problems related to naive summarization methods. You always have to invoke the “Start Summarization!” button in order to create an object needed for downstream quantification. Depending on the method, summarization might take a while.
 
-We first select the naive median summarization method and hit the “Start Summarization!” button. When the summarization is finished an MDS plot is generated based on the summarized intensities. There also appears a download button to download the summarized values in an excel file. Download the protein summaries by clicking on the “Download protein intensities” button. A project_CPTAC_AvsB_Timestamp_ProteinSummaries.xlsx files is generated in your Web Browser’s default download folder. We mainly will do this to illustrate the pitfalls of naive summarization methods.
+We first select the naive median summarization method and hit the “Start Summarization!” button. When the summarization is finished an MDS plot is generated based on the summarized intensities. There also appears a download button to download the summarized values in an excel file in your Web Browser’s default download folder.
 
 ![Figure 10. MSqRob Summarization tab](./figs/MSqRobSummarization2.png)
 
@@ -157,7 +157,7 @@ We can now filter the ups proteins by typing "ups" in the search field above the
 
 [2.3.4.c] Repeat this for the median summarization method. What do you observe, how does that compare to the robust summarisation and try to explain this?
 
-[2.3.4.c] Repeat the analysis using the MaqLFQ summarization. You can use the proteinGroupsModForMsQrobAnalysis.txt file for this purpose. Read the file as the peptides file. Note that the summarization has already be conducted by the MaxQuant software so you can select the summarisation method none in the summarization tab. What do you observe, how does that compare to the robust summarisation and try to explain this?
+[2.3.4.c] Repeat the analysis using the MaqLFQ summarization. You can use the proteinGroupsModForMsQrobAnalysis.txt file for this purpose. We will have to repeat the entire analysis for this purpose. Read the file as the peptides file. Note, that the summarization has already be conducted by the MaxQuant software so you can select the summarisation method none in the summarization tab. What do you observe, how does that compare to the robust summarisation and try to explain this?
 
 
 #### 2.4 The Francisella dataset
