@@ -1,6 +1,9 @@
 install.packages('rjson')
 install.packages("shinydashboard")
 
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
 BiocManager::install("shiny")
 BiocManager::install("shinyjs")
 BiocManager::install("shinythemes")
