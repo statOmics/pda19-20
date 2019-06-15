@@ -15,17 +15,15 @@ There are three options to work with the software:
 - Install [R/Rstudio](https://www.rstudio.com/products/rstudio)
 - Install Bioconductor packages:
 ``` yaml
-source("http://bioconductor.org/biocLite.R")
-biocLite()
+install.package("BiocManager")
 ```
 - Install MSnbase
 ``` yaml
-biocLite(“MSnbase”)
+BiocManager::install(“MSnbase”)
 ```
-- Install devtools and MSqRob
+- Install MSqRob
 ``` yaml
-biocLite("devtools")
-devtools::install_github("statOmics/MSqRob@MSqRob0.7.5")
+BiocManager::install("statOmics/MSqRob@MSqRob0.7.5")
 ```
 
 - Download and unzip pda master tree
