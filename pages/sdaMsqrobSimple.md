@@ -101,7 +101,7 @@ We first select the naive median summarization method and hit the “Start Summa
 
 ![Figure 10. MSqRob Summarization tab](./figs/MSqRobSummarization2.png)
 
-We then select the robust method, which we will use in the downstream data analysis method so as to implement the two-stage MSqRob procedure. 
+We then select the robust method, which we will use in the downstream data analysis method so as to implement the two-stage MSqRob procedure.
 
 What do you see upon summarization with the robust method and why would that be the case? [2.3.3.a]
 
@@ -159,6 +159,7 @@ We can now filter the ups proteins by typing "ups" in the search field above the
 
 [2.3.4.c] Repeat the analysis using the MaqLFQ summarization. You can use the proteinGroupsModForMsQrobAnalysis.txt file for this purpose. We will have to repeat the entire analysis for this purpose. Read the file as the peptides file. Note, that the summarization has already be conducted by the MaxQuant software so you can select the summarisation method none in the summarization tab. What do you observe, how does that compare to the robust summarisation and try to explain this?
 
+An rmarkdown notebook for the analysis can be downloaded here: [cptacAvsB_lab3.Rmd](https://raw.githubusercontent.com/statOmics/pda/tree/pages/assets/cptacAvsB_lab3.Rmd) and [cptacAvsB_lab3.html](./cptacAvsB_lab3.nb.html). 
 
 #### 2.4 The Francisella dataset
 A study on the facultative pathogen Francisella tularensis was conceived by Ramond et al. (2015) [12]. F. tularensis enters the cells of its host by phagocytosis. The authors showed that F. tularensis is arginine deficient and imports arginine from the host cell via an arginine transporter, ArgP, in order to efficiently escape from the phagosome and reach the cytosolic compartment, where it can actively multiply. In their study, they compared the proteome of wild type F. tularensis (WT) to ArgP-gene deleted F. tularensis (knock-out, D8). For this exercise, we use a subset of the F. tularensis dataset where bacterial cultures were grown in biological triplicate and each sample was run on a nanoRSLC-Q Exactive PLUS instrument. The data were searched with MaxQuant version 1.4.1.2.
