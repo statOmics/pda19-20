@@ -273,3 +273,164 @@ fileInput <- function (inputId, label, multiple = FALSE, accept = NULL, width = 
              class = "progress progress-striped active shiny-file-input-progress",
              tags$div(class = "progress-bar")))
 }
+
+
+
+preprocess_MaxQuant2<-function (MSnSet, accession = "Proteins", exp_annotation = NULL,
+    type_annot = NULL, logtransform = TRUE, base = 2, normalisation = "quantiles",
+    weights = NULL, smallestUniqueGroups = TRUE, useful_properties = c("Proteins",
+        "Sequence", "PEP"), filter = c("Potential.contaminant",
+        "Reverse"), filter_symbol = "+", minIdentified = 2, remove_only_site = FALSE,
+    file_proteinGroups = NULL, colClasses = "keep", droplevels = TRUE,
+    printProgress = FALSE, shiny = FALSE, message = NULL)
+{
+    if ("Potential.contaminant" %in% filter && !("Potential.contaminant" %in%
+        colnames(Biobase::fData(MSnSet)))) {
+        filter[filter == "Potential.contaminant"] <- "Contaminant"
+    }
+    details <- c("Aggregating peptides", "Log-transforming data",
+        "Normalizing data", "Removing overlapping protein groups",
+        "Removing contaminants and/or reverse sequences", "Removing proteins only identified by modified peptides",
+        "Removing less useful properties", paste0("Removing peptides identified less than ",
+            minIdentified, " times"), "Adding experimental annotation")
+    external_filter_accession = "Protein.IDs"
+    external_filter_column = "Only.identified.by.site"
+    if (!isTRUE(remove_only_site)) {
+        file_proteinGroups <- NULL
+    }
+    MSnSet <- preprocess_MSnSet2(MSnSet = MSnSet, accession = accession,
+        exp_annotation = exp_annotation, type_annot = type_annot,
+        logtransform = logtransform, base = base, normalisation = normalisation,
+        weights = weights, smallestUniqueGroups = smallestUniqueGroups,
+        split = ";", useful_properties = useful_properties, filter = filter,
+        filter_symbol = filter_symbol, minIdentified = minIdentified,
+        external_filter_file = file_proteinGroups, external_filter_accession = external_filter_accession,
+        external_filter_column = external_filter_column, colClasses = colClasses,
+        droplevels = droplevels, printProgress = printProgress,
+        shiny = shiny, message = message, details = details)
+    if (ncol(pData(MSnSet)) == 0) {
+        emptyPData <- data.frame(run = rownames(pData(MSnSet)))
+        rownames(emptyPData) <- rownames(pData(MSnSet))
+        pData(MSnSet) <- emptyPData
+    }
+    return(MSnSet)
+}
+
+
+preprocess_MSnSet2 <- function (MSnSet, accession, exp_annotation = NULL, type_annot = NULL,
+    aggr_by = NULL, aggr_function = "sum", logtransform = TRUE,
+    base = 2, normalisation = "quantiles", weights = NULL, smallestUniqueGroups = TRUE,
+    split = NULL, useful_properties = NULL, filter = NULL, filter_symbol = NULL,
+    minIdentified = 2, external_filter_file = NULL, external_filter_accession = NULL,
+    external_filter_column = NULL, colClasses = "keep", droplevels = TRUE,
+    printProgress = FALSE, shiny = FALSE, message = NULL, details = NULL)
+{
+    accession <- make.names(accession, unique = TRUE)
+    useful_properties <- make.names(useful_properties, unique = TRUE)
+    if (isTRUE(smallestUniqueGroups) && is.null(split)) {
+        stop("Please provide the protein groups separator (split argument) or set the smallestUniqueGroups argument to FALSE.")
+    }
+    if (!(accession %in% useful_properties)) {
+        useful_properties <- c(accession, useful_properties)
+    }
+    if (!all(useful_properties %in% colnames(Biobase::fData(MSnSet)))) {
+        stop("Argument \"useful_properties\" must only contain column names of the featureData slot.")
+    }
+    if (!all(filter %in% colnames(Biobase::fData(MSnSet)))) {
+        stop("One or more elements in the \"filter\" argument are no column names of the featureData slot of the MSnSet object.")
+    }
+    n <- sum(isTRUE(logtransform), (normalisation != "none"),
+        isTRUE(smallestUniqueGroups), !is.null(filter), !is.null(external_filter_file),
+        !all(colnames(Biobase::fData(MSnSet)) %in% useful_properties),
+        minIdentified > 1, !is.null(exp_annotation))
+    if (!is.null(aggr_by)) {
+        MSnSet <- aggregateMSnSet(MSnSet, aggr_by = c(aggr_by,
+            filter), aggr_function = "sum", split = split, shiny = shiny,
+            printProgress = printProgress, message = details[1])
+    }
+    progress <- NULL
+    if (isTRUE(shiny) && n > 0) {
+        progress <- shiny::Progress$new()
+        on.exit(progress$close())
+        progress$set(message = message, value = 0)
+    }
+    if (isTRUE(logtransform)) {
+        updateProgress(progress = progress, detail = details[2],
+            n = n, shiny = shiny, print = isTRUE(printProgress &
+                logtransform))
+        MSnSet <- log(MSnSet, base = base)
+    }
+    exprs <- Biobase::exprs(MSnSet)
+    exprs[is.infinite(exprs)] <- NA
+    Biobase::exprs(MSnSet) <- exprs
+
+    if (isTRUE(smallestUniqueGroups)) {
+        updateProgress(progress = progress, detail = details[4],
+            n = n, shiny = shiny, print = isTRUE(printProgress &
+                smallestUniqueGroups))
+        groups2 <- smallestUniqueGroups(Biobase::fData(MSnSet)[,
+            accession], split = split)
+        sel <- Biobase::fData(MSnSet)[, accession] %in% groups2
+        MSnSet <- MSnSet[sel]
+    }
+    if (!is.null(filter)) {
+        updateProgress(progress = progress, detail = details[5],
+            n = n, shiny = shiny, print = isTRUE(printProgress &
+                (length(filter) != 0)))
+        filterdata <- Biobase::fData(MSnSet)[, filter, drop = FALSE]
+        filterdata[is.na(filterdata)] <- ""
+        sel <- rowSums(filterdata != filter_symbol) == length(filter)
+        MSnSet <- MSnSet[sel]
+    }
+    if (!is.null(external_filter_file)) {
+        updateProgress(progress = progress, detail = details[6],
+            n = n, shiny = shiny, print = isTRUE(printProgress))
+        externalFilter <- read.table(external_filter_file, sep = "\t",
+            header = TRUE, quote = "", comment.char = "")
+        only_site <- externalFilter[[external_filter_column]]
+        only_site[is.na(only_site)] <- ""
+        removed_proteins <- externalFilter[[external_filter_accession]][only_site ==
+            filter_symbol]
+        sel <- !(as.character(Biobase::fData(MSnSet)[, accession]) %in%
+            as.character(removed_proteins))
+        MSnSet <- MSnSet[sel]
+    }
+    if (!all(colnames(Biobase::fData(MSnSet)) %in% useful_properties)) {
+        updateProgress(progress = progress, detail = details[7],
+            n = n, shiny = shiny, print = isTRUE(printProgress))
+        Biobase::fData(MSnSet) <- Biobase::fData(MSnSet)[, useful_properties,
+            drop = FALSE]
+    }
+    if (minIdentified > 1) {
+        updateProgress(progress = progress, detail = details[8],
+            n = n, shiny = shiny, print = isTRUE(printProgress))
+        keepers <- rowSums(!is.na(Biobase::exprs(MSnSet))) >=
+            minIdentified
+        MSnSet <- MSnSet[keepers]
+    }
+    if (normalisation != "none") {
+        updateProgress(progress = progress, detail = details[3],
+            n = n, shiny = shiny, print = isTRUE(printProgress &
+                (normalisation != "none")))
+        MSnSet <- normalise(MSnSet, normalisation, weights)
+    }
+    if (!is.null(exp_annotation)) {
+        updateProgress(progress = progress, detail = details[9],
+            n = n, shiny = shiny, print = isTRUE(printProgress &
+                !is.null(exp_annotation)))
+        exprs <- Biobase::exprs(MSnSet)
+        pData <- makeAnnotation(exp_annotation = exp_annotation,
+            run_names = colnames(exprs), type_annot = type_annot,
+            colClasses = colClasses)
+        annotation_run <- getAnnotationRun(pData = pData, run_names = colnames(exprs))
+        exprs <- exprs[, match(as.character(pData[, annotation_run]),
+            colnames(exprs))]
+        rownames(pData) <- colnames(exprs)
+        MSnSet <- MSnbase::MSnSet(exprs = exprs, fData = Biobase::fData(MSnSet),
+            pData = pData)
+    }
+    if (isTRUE(droplevels)) {
+        Biobase::fData(MSnSet) <- droplevels(Biobase::fData(MSnSet))
+    }
+    return(MSnSet)
+}
