@@ -60,11 +60,14 @@ Three subsets of the data are avialable:
 - peptidesRCB.txt: contains data for 4 bio-repeats only, but for each bio-repeat the Treg and Tconv proteome is profiled.   
 - peptides.txt: contains data of Treg and Tconv cells for 7 bio-repeats
 
-##### 3.1. How would you analyse the CRD data?
+Users familiar with R are advised to download the notebook [cptacAvsB_lab3.Rmd](https://raw.githubusercontent.com/statOmics/pda/gh-pages/assets/cptacAvsB_lab3.Rmd)  and to alter it for the analysis of the Mouse T-cell example.
+Users who are not familiar with R can do the analysis with the GUI.
 
-##### 3.2. How would you analyse the RCB data?
+##### 3.3.1. How would you analyse the CRD data?
 
-##### 3.1. Try to explain the difference in the number of proteins that can be discovered with both designs?
+##### 3.3.2. How would you analyse the RCB data?
+
+##### 3.3.3. Try to explain the difference in the number of proteins that can be discovered with both designs?
 
 <br/><br/>
 
@@ -77,10 +80,14 @@ Researchers have assessed the proteome in different regions of the heart for 3 p
 Suppose that researchers are mainly interested in comparing the ventricular to the atrial proteome.
 Particularly, they would like to compare the left atrium to the left ventricle, the right atrium to the right ventricle, the average ventricular vs atrial proteome and if ventricular vs atrial proteome shifts differ between left and right heart region.
 
-##### 3.3.1. Which factors will you use in the mean model?
 
-##### 3.3.2. Spell out the contrast for each research question?
+Users familiar with R are advised to download the notebook [cptacAvsB_lab3.Rmd](https://raw.githubusercontent.com/statOmics/pda/gh-pages/assets/cptacAvsB_lab3.Rmd)  and to alter it for the analysis of the heart example.
+Users who are not familiar with R can do the analysis with the GUI.
 
-##### 3.3.3. Interpret the estimate for the top hit of each contrast?
+##### 3.4.1. Which factors will you use in the mean model?
 
-##### 3.3.4. Try to explain why there is such a large difference in the number of significant proteins that are found between the contrasts?
+##### 3.4.2. Spell out the contrast for each research question?
+
+##### 3.4.3. Interpret the estimate for the top hit of each contrast?
+
+##### 3.4.4. Try to explain why there is such a large difference in the number of significant proteins that are found between the contrasts?

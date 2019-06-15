@@ -26,8 +26,8 @@ With the grepEcols function we find the columns that are containing the expressi
 library(MSqRob)
 library(MSnbase)
 library(tidyverse)
-peptidesFile <- "https://raw.githubusercontent.com/statOmics/statisticalGenomicsCourse/data/quantification/cptacAvsB_lab3/peptides.txt"
-proteinGroupsFile <-"https://raw.githubusercontent.com/statOmics/statisticalGenomicsCourse/data/quantification/cptacAvsB_lab3/proteinGroups.txt"
+peptidesFile <- "https://raw.githubusercontent.com/statOmics/pda/data/quantification/cptacAvsB_lab3/peptides.txt"
+proteinGroupsFile <-"https://raw.githubusercontent.com/statOmics/pda/data/quantification/cptacAvsB_lab3/proteinGroups.txt"
 ecols<-grepEcols(peptidesFile, "Intensity ", split = "\t")
 ```
 
