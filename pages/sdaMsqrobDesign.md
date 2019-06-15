@@ -22,7 +22,11 @@ A very powerful concept in experimental design is that of blocking [5]. In rando
 
 Figure 1. Example of a good (A) and a bad (B) design. In design A, both the green and orange treatments are divided equally within each block. That way, the treatment effect can be estimated within a block. In design B, each block contains only one treatment, so the treatment effect is entirely confounded with the blocking effect and it is thus impossible to draw meaningful conclusions on the treatment (unless one would be willing to assume that the blocking effect is negligible, which is a very strong assumption that cannot be verified based on the design).
 
-#### 3.2 Starting MSqRob
+#### 3.2 Using MSqRob
+
+Users familiar with R are advised to download the notebook [cptacAvsB_lab3.Rmd](https://raw.githubusercontent.com/statOmics/pda/gh-pages/assets/cptacAvsB_lab3.Rmd)  and to alter it for the analysis of both examples below.
+
+Users who are not familiar with R can use the MSqRob GUI. For installation instruction see [Install and Launch Statistical Software](./software4stats.md)
 
 When working with the online binder version, hit the binder button below:
 
@@ -31,7 +35,7 @@ When working with the online binder version, hit the binder button below:
 
 If you use the software on a more regular basis building a local docker environment is advised, (see [software page](./software4stats.md)).
 
-Upon hitting the binder button an interactive statistical programming environment will open that is running on a cloud server. In this tutorial we will not make use of the powerful R-scripting environment, but we will launch an App with a GUI instead. Open the launchMSqRobShinyApp.R file by clicking on the file in the bottom right panel.
+Upon hitting the binder button an interactive statistical programming environment will open that is running on a cloud server. Open the launchMSqRobShinyApp.R file by clicking on the file in the bottom right panel.
 
 ![Figure 2. Rstudio](./figs/rstudioWindowMsqrob1.png)
 
