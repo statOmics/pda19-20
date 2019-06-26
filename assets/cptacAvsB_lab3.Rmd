@@ -26,6 +26,7 @@ With the grepEcols function we find the columns that are containing the expressi
 library(MSqRob)
 library(MSnbase)
 library(tidyverse)
+library(limma)
 peptidesFile <- "https://raw.githubusercontent.com/statOmics/pda/data/quantification/cptacAvsB_lab3/peptides.txt"
 proteinGroupsFile <-"https://raw.githubusercontent.com/statOmics/pda/data/quantification/cptacAvsB_lab3/proteinGroups.txt"
 ecols<-grepEcols(peptidesFile, "Intensity ", split = "\t")
@@ -91,7 +92,7 @@ pData(pepData)$condition <- pepData %>% sampleNames %>% substr(1,1) %>% as.facto
 ## Data exploration
 
 We can inspect the missingness in our data with the `naplot()` and `plotNA()` function provided with `MSnbase`.
-55% of all peptide intensities are missing and for some peptides we don't even measure a signal in any sample. The missingness is similar across samples.
+`r format(mean(is.na(exprs(pepData)))*100,digits=2)`% of all peptide intensities are missing and for some peptides we don't even measure a signal in any sample. The missingness is similar across samples.
 ```{r, cache= TRUE}
 plotNA(pepData)
 naplot(pepData)
@@ -200,7 +201,6 @@ plotDensities(exprs(pepData))
 We can visualize our data using a Multi Dimensional Scaling plot, eg. as provided by the limma package.
 
 ```{r}
-library(limma)
 plotMDS(exprs(pepData),col=as.double(pData(pepData)$condition))
 ```
 
