@@ -285,7 +285,16 @@ volcano<- ggplot(tests %>% rownames_to_column("protein"),aes(x=estimate,y=-log10
 ggplotly(volcano)
 ```
 
-#### 3.3.2. Detail plot for the top 5 proteins.
+#### 3.3.2. Heatmap
+
+We first select the names of the significant proteins.
+
+```{r}
+sigNames<- tests %>% rownames_to_column("protein") %>% filter(signif) %>% pull(protein)
+heatmap(exprs(protData)[sigNames,])
+```
+
+#### 3.3.3. Detail plot for the top 5 proteins.
 
 We first extract the normalized protein expression values for a particular protein and we create a dataframe that contains the protein expression values and the relevant variables of the experimental design.  
 
