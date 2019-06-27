@@ -22,7 +22,7 @@ We generate the object peptideFile with the path to the peptides.txt file.
 In this file we assume that we work in the directory where the peptides.txt and proteingroups.txt file are located.
 With the grepEcols function we find the columns that are containing the expression data of the peptides in the peptides.txt file.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(MSqRob)
 library(MSnbase)
 library(tidyverse)
@@ -64,6 +64,15 @@ This info on the proteins can be found in the proteingroups.txt file of maxquant
 The peptides.txt file contains many data on each feature (peptide).
 We will only retain specified columns Protein, Sequence, Reverse and Potential.Contaminant, indicating the protein, peptide sequence, if the peptide is a decoy and if it is a contaminant, respectively.
 
+In older and more recent versions of maxquant the names of the fields might vary. We can therefore explore the names we want to select with the shiny app that can be launched from the selectFeatureData from the MSnbase package, i.e. by running the function without an fcol argument that specifies the columns you would like to select.
+
+The code can be found below, but is not executed by this Rmd script (note, that the flag eval=FALSE has been used as option for the R chunk).
+
+```{r,eval=FALSE}
+pepData<-selectFeatureData(pepData)
+```
+
+If we know the columns, we can specify them as a vector in the fcol slot.
 
 ```{r}
 pepData<-selectFeatureData(pepData,fcol=c("Proteins","Potential.contaminant","Reverse","Sequence"))
@@ -280,7 +289,7 @@ ggplotly(volcano)
 
 We first extract the normalized protein expression values for a particular protein and we create a dataframe that contains the protein expression values and the relevant variables of the experimental design.  
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 for (protName in rownames(tests)[1:5])
 {
 plotDat<-pepData[fData(pepData)$Proteins==protName] %>% exprs
