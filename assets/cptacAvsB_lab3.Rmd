@@ -1,9 +1,11 @@
 ---
-title: "Intro to MSqRob"
-author: "Lieven Clement"
+title: "Introduction to proteomics data analysis"
+author:
+- name: Lieven Clement
 output:
-  html_notebook: default
+  BiocStyle::html_document
 ---
+
 
 # Background
 This case-study is a subset of the data of the 6th study of the Clinical Proteomic Technology Assessment for Cancer (CPTAC).
@@ -13,13 +15,14 @@ We limited ourselves to the data of LTQ-Orbitrap W at site 56.
 The data were searched with MaxQuant version 1.5.2.8, and detailed search settings were described in Goeminne et al. (2016) [1].
 Three replicates are available for each concentration.
 
-## 1. Data
+# Data
 
 We first import the peptides.txt file. This is the file that contains your peptide-level intensities. For a MaxQuant search [6], this peptides.txt file can be found by default in the "path_to_raw_files/combined/txt/" folder from the MaxQuant output, with "path_to_raw_files" the folder where raw files were saved. In this tutorial, we will use a MaxQuant peptides file from MaxQuant that can be found on the pdaData repository.
 We will use the MSnbase package to import the data.
 
 We generate the object peptideFile with the path to the peptides.txt file.
-In this file we assume that we work in the directory where the peptides.txt and proteingroups.txt file are located.
+In this file we will fetch the data from the github repository linked to the pda course: https://statomics.github.io/pda.
+You can also replace the peptideFile with a string that points to the path of a file on your local hard drive. 
 With the grepEcols function we find the columns that are containing the expression data of the peptides in the peptides.txt file.
 
 ```{r, warning=FALSE, message=FALSE}
@@ -100,11 +103,11 @@ pData(pepData)$condition <- pepData %>% sampleNames %>% substr(1,1) %>% as.facto
 
 ## Data exploration
 
-We can inspect the missingness in our data with the `naplot()` and `plotNA()` function provided with `MSnbase`.
+We can inspect the missingness in our data with the `plotNA()` function provided with `MSnbase`.
 `r format(mean(is.na(exprs(pepData)))*100,digits=2)`% of all peptide intensities are missing and for some peptides we don't even measure a signal in any sample. The missingness is similar across samples.
+Note, that we plot the peptide data, so the label protein in the plot refers to peptides.
 ```{r, cache= TRUE}
 plotNA(pepData)
-naplot(pepData)
 ```
 
 When we look at density plots of the intensities, we see that most intensities are low and that there is a long tail to the right.
@@ -120,14 +123,12 @@ nrow(pepData)
 
 There are `r nrow(pepData)` peptides before preprocessing.
 
-## 2. Preprocessing
+# Preprocessing
 
 We will log transform, normalize, filter and summarize the data.
-We will first replace the expression values that are equal to zero by a NA value.
-Otherwise we will get values that are - infinity upon log transformation
 
 
-### 2.1. Log transform the data
+## Log transform the data
 
 ```{r}
 pepData <- log(pepData, base = 2)
@@ -138,16 +139,16 @@ When we look at the densities we see small shifts in location and shape of the d
 So normalisation will be required.
 But, we will first perform filtering.
 
-### 2.2. Filtering
+## Filtering
 
-#### 2.2.1. Handling overlapping protein groups
+### Handling overlapping protein groups
 In our approach a peptide can map to multiple proteins, as long as there is none of these proteins present in a smaller subgroup.
 
 ```{r}
 pepData<-pepData[fData(pepData)$Proteins %in% smallestUniqueGroups(fData(pepData)$Proteins),]
 ```
 
-#### 2.2.2. Remove reverse sequences (decoys) and contaminants
+### Remove reverse sequences (decoys) and contaminants
 
 We now remove the contaminants, peptides that map to decoy sequences and proteins, which were only identified by peptides with modifications.
 
@@ -156,7 +157,7 @@ pepData <- pepData[fData(pepData)$Reverse!="+",]
 pepData <- pepData[fData(pepData)$Potential.contaminant!="+",]
 ```
 
-#### 2.2.3. Remove peptides of proteins that were only identified with modified peptides
+### Remove peptides of proteins that were only identified with modified peptides
 
 Proteins for which all peptides are carrying modifications (PTMs) can be considered as unreliable.
 We will filter out these proteins.
@@ -170,7 +171,6 @@ proteinGroups<-read.table(proteinGroupsFile, sep = "\t", header = TRUE, quote = 
 only_site <- proteinGroups$Only.identified.by.site
 only_site[is.na(only_site)] <- ""
 proteinsOnlyIdentifiedWithPTMs <- proteinGroups$Protein.IDs[only_site=="+"]
-proteins <- pepData %>% fData %>% select("Proteins") %>% as.character
 pepData<-pepData[!(fData(pepData)$Proteins %in% proteinsOnlyIdentifiedWithPTMs),]
 ```
 
@@ -181,7 +181,7 @@ rm(proteinGroups,only_site)
 gc()
 ```
 
-#### 2.2.4 Drop peptides that were only identified in one sample
+### Drop peptides that were only identified in one sample
 
 We want to keep peptide that were at least observed twice.
 
@@ -193,13 +193,13 @@ nrow(pepData)
 We keep `r nrow(pepData)` peptides upon filtering.  
 
 
-### 2.3. Quantile normalize the data
+## Quantile normalize the data
 ```{r}
 pepData <- normalise(pepData, "quantiles")
 ```
 
 
-### 2.4. Explore quantile normalized data
+## Explore quantile normalized data
 
 Upon normalisation the density curves for all samples coincide.
 
@@ -216,12 +216,14 @@ plotMDS(exprs(pepData),col=as.double(pData(pepData)$condition))
 The first axis in the plot is showing the leading log fold changes (differences on the log scale) between the samples.
 We notice that the leading differences (log FC) in the peptide data seems to be driven by technical variability.
 Indeed the samples do not seem to be clearly separated according to the spike in condition.
+Because there are missing values for the peptide level data we use the `na.rm=TRUE` argument to summarize the data based on the observed peptides for every protein.
 
-### 2.5. Summarization to protein level
-```{r}
-protData<-suppressWarnings(combineFeatures(pepData,groupBy=fData(pepData)$Proteins,fun="robust"))
+## Summarization to protein level
+```{r,warning=FALSE}
+protData<-combineFeatures(pepData,fcol="Proteins",method="robust",na.rm=TRUE)
 ```
 
+If you summarize using robust summarization please refer to Sticker et al. (2019) https://www.biorxiv.org/content/10.1101/668863v1
 
 We notice that the leading differences (log FC) in the protein data is still according to technical variation. On the second dimension, however, we also observe a clear separation according to the spike-in condition. Hence, the summarization that accounts for peptide specific effects makes the effects due to the spike-in condition more prominent!
 
@@ -230,9 +232,9 @@ plotMDS(exprs(protData),col=as.double(pData(pepData)$condition))
 ```
 
 
-## 3. Data Analysis
+# Data Analysis
 
-### 3.1. Estimation
+## Estimation
 MSqRob is currently working with a format where we have one dataframe for each protein.
 This will be changed in the next release.
 Therefore we first have to reorganise the data.
@@ -254,7 +256,7 @@ protMSqRob <- MSnSet2protdata(protData, "Proteins")
 models <- fit.model(protdata=protMSqRob, response="quant_value", fixed="condition",shrinkage.fixed=c(0,0),robust_var=FALSE)
 ```
 
-### 3.2. Inference
+## Inference
 Many biologists have problems with the reference coding.
 In MSqRob we have opted to formulate contrasts using all levels of a factor.
 Internally, the contrasts are than recasted according to the factor level that is the reference class.
@@ -266,12 +268,14 @@ nSig <- sum(tests$signif,na.rm=TRUE)
 head(tests,nSig)
 ```
 
-### 3.3. Plots
+There are `r nSig` proteins with a significant effect at the 5% FDR level. 
 
-#### 3.3.1. Volcano-plot
+## Plots
+
+### Volcano-plot
 
 
-```{r}
+```{r,warning=FALSE}
 volcano<- ggplot(tests,aes(x=estimate,y=-log10(pval),color=signif)) + geom_point() + scale_color_manual(values=c("black","red"))
 volcano
 ```
@@ -285,7 +289,7 @@ volcano<- ggplot(tests %>% rownames_to_column("protein"),aes(x=estimate,y=-log10
 ggplotly(volcano)
 ```
 
-#### 3.3.2. Heatmap
+### Heatmap
 
 We first select the names of the significant proteins.
 
@@ -294,7 +298,7 @@ sigNames<- tests %>% rownames_to_column("protein") %>% filter(signif) %>% pull(p
 heatmap(exprs(protData)[sigNames,])
 ```
 
-#### 3.3.3. Detail plot for the top 5 proteins.
+### Detail plot for the top 5 proteins.
 
 We first extract the normalized protein expression values for a particular protein and we create a dataframe that contains the protein expression values and the relevant variables of the experimental design.  
 
@@ -308,7 +312,22 @@ print(plot1 +geom_boxplot(outlier.shape=NA) + geom_point(position=position_jitte
 }
 ```
 
-#### 3.3.3. Sensitivity FDP plot
+### Sensitivity FDP plot
+
+Because we know the ground truth for the cptac study, i.e. we know that only the spike-in proteins (UPS) are differentially expressed, we can evalute the fold changes.
+Yeast proteins should be not differentially expressed and their log fold changes should be centered around 0. These of UPS proteins are spiked at differt concentrations and their log2 fold changes should be centered around log2(concB/concA)=log2(0.74/0.25)=`r log2(0.74/0.25)`.
+
+We will first create a novel factor in the results table that is called `spike` to indicate which proteins are spiked.
+
+```{r,warning=FALSE}
+tests$spike <- tests %>% rownames %>% grepl(.,pattern="UPS")
+ggplot(tests, aes(x=spike, y=estimate)) +
+  geom_boxplot() +
+  geom_hline(yintercept=c(0,log(0.74/0.25,base=2)),color="red")+
+  ylab("log2 FC")
+```
+
+### Sensitivity FDP plot
 
 Because we know the ground truth for the cptac study, i.e. we know that only the spike-in proteins (UPS) are differentially expressed, we can calculate
 
@@ -325,9 +344,8 @@ Instead of only calculating that for the protein list that is returned for the c
 ```{r}
 tests<-tests %>% rownames_to_column("protein") %>%
 mutate(
-ups=grepl("ups",protein),
-FDP=cumsum(!ups)/(1:length(ups)),
-TPR=cumsum(ups)/sum(ups)) %>%
+FDP=cumsum(!spike)/(1:length(spike)),
+TPR=cumsum(spike)/sum(spike)) %>%
 column_to_rownames("protein")
 
 ggplot(tests,aes(x=FDP,y=TPR)) + geom_path() +geom_vline(xintercept=0.05,lty=2) + geom_point(data=tests[sum(tests$signif,na.rm=TRUE),],aes(x=FDP,y=TPR),cex=2)
