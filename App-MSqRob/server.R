@@ -31,7 +31,10 @@ shinyServer(function(input, output, session) {
     updateCheckboxInput(session, "onlysite", value = value)
   })
 
-
+  output$keepAlive <- renderText({
+        req(input$count)
+        paste("keep alive ", input$count)
+      })
 
 
 
