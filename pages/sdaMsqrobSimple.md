@@ -117,7 +117,7 @@ Ridge regression, however, is considerably slower so for the exercises we will s
 
 Set the “Number of contrasts” to 1. Contrasts are linear combination of the parameters in the model that quantify the effect of interest. In our case we model the data with a linear model that contains two parameters: a mean for every treatment group. We aim to compare the log average for the two treatment groups. So we only have one contrast of interest. Remember that we log-transformed the intensities:
 
-$$ log_2⁡FC=log_2⁡6B-log_2⁡6A=log_2⁡ \frac{6B}{6A} $$
+$$ log_2⁡FC=log_2⁡ 6B-log_2⁡ 6A=log_2⁡ \frac{6B}{6A} $$
 
 This contrast has the interpretation of a log2 fold change between condition 6B and condition 6A. Positive estimates denote that the abundance of the protein is on average higher in condition 6B, negative estimates denote that the abundance is on average higher in condition 6A. An estimate equal to 0 indicates that the estimated abundances are equal. A log2 FC = 1 indicates that the average abundance in condition B is 2 x higher than the average abundance in condition A, i.e. an 2 fold upregulation in condition B as compared to condition A.
 In order to specify the contrast of interest in MSqRob we set condition 6A to − 1 and condition 6B to 1. That way, we subtract the average log2 intensity in condition 6A from that in condition 6B.
@@ -126,7 +126,7 @@ In the statistical analysis we will then test the null hypothesis that
 $$ H0: log_2 ⁡6B-log_2 ⁡6A = 0 $$
 
 Against the alternative that
-$$ H0: log_2 ⁡6B-log_2 ⁡6A \neq0 $$
+$$ H0: log_2 ⁡6B-log_2 ⁡6A \neq 0 $$
 
 And we will falsify this null hypothesis for each protein separately. So, under the null hypothesis we reason that there is no effect of the spike-in treatment on the abundance of a specific protein. The p-value of the statistical test than indicates the probability to observe an effect (fold change), that is as extreme or more extreme (equally or more up or down regulated) than what is observed in the sample, by random change (when the null hypothesis is true and when there is in reality no effect of the treatment).
 
@@ -159,7 +159,7 @@ We can now filter the ups proteins by typing "ups" in the search field above the
 
 [2.3.4.c] Repeat the analysis using the MaqLFQ summarization. You can use the proteinGroupsModForMsQrobAnalysis.txt file for this purpose. We will have to repeat the entire analysis for this purpose. Read the file as the peptides file. Note, that the summarization has already be conducted by the MaxQuant software so you can select the summarisation method none in the summarization tab. What do you observe, how does that compare to the robust summarisation and try to explain this?
 
-An rmarkdown notebook for the analysis can be downloaded here: [cptacAvsB_lab3.Rmd](https://raw.githubusercontent.com/statOmics/pda/gh-pages/assets/cptacAvsB_lab3.Rmd) and [cptacAvsB_lab3.html](./cptacAvsB_lab3.nb.html).
+Note, that the shiny app is an interface to the statistical programming software R. The analysis can also be conducted using scripts, which gives the user much more functionality and the ability to document their analysis in a reproducible way. An R/markdown notebook for the analysis we performed above can be downloaded here: [cptacAvsB_lab3.Rmd](https://raw.githubusercontent.com/statOmics/pda/gh-pages/assets/cptacAvsB_lab3.Rmd) and [cptacAvsB_lab3.html](./cptacAvsB_lab3.nb.html).
 
 #### 2.4 The Francisella dataset
 A study on the facultative pathogen Francisella tularensis was conceived by Ramond et al. (2015) [12]. F. tularensis enters the cells of its host by phagocytosis. The authors showed that F. tularensis is arginine deficient and imports arginine from the host cell via an arginine transporter, ArgP, in order to efficiently escape from the phagosome and reach the cytosolic compartment, where it can actively multiply. In their study, they compared the proteome of wild type F. tularensis (WT) to ArgP-gene deleted F. tularensis (knock-out, D8). For this exercise, we use a subset of the F. tularensis dataset where bacterial cultures were grown in biological triplicate and each sample was run on a nanoRSLC-Q Exactive PLUS instrument. The data were searched with MaxQuant version 1.4.1.2.
