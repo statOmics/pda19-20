@@ -8,7 +8,7 @@ R shiny apps for proteomics.
 
 Website
 ------
-https://statomics.github.io/pda/
+https://statomics.github.io/pda19-20/
 
 Credits
 -------
